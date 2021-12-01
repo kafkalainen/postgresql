@@ -18,7 +18,7 @@
 
 ## Login syntax on postgres client
 
-	psql -h 127.0.0.1 -p 5432 -d ${DATABASE_NAME} -U ${USER_NAME}
+	psql -h 127.0.0.1 -p 8032 -d ${DATABASE_NAME} -U ${USER_NAME}
 
 ## Commands
 
@@ -49,6 +49,12 @@ Command | What it does
 `SELECT customer_id FROM rental WHERE CAST (return_date AS DATE) = '2005-05-27' ORDER BY customer_id;`| Cast value to other type before comparison.
 `SELECT payment.customer_id, customer.first_name, customer.last_name, payment.amount FROM payment INNER JOIN customer ON payment.customer_id = customer.customer_id WHERE amount BETWEEN 8 AND 9;` | Fetch all the rows with inner join on customer id, on payment and customer tables, where amount is between 8 and 9 usd.
 `SELECT payment.customer_id, customer.first_name, customer.last_name, SUM(payment.amount) AS total FROM payment INNER JOIN customer ON payment.customer_id = customer.customer_id GROUP BY payment.customer_id, customer.first_name, customer.last_name, payment.amount ORDER BY total DESC FETCH NEXT 10 ROWS ONLY;` | Fetch 10 biggest spenders in the customer and payment table.
+`SELECT first_name, last_name FROM customer UNION SELECT first_name, last_name FROM actor ORDER BY first_name ASC;` | Returns the names of all customers and actors.
+`SELECT first_name, last_name FROM customer INTERSECT SELECT first_name, last_name FROM actor;` | Returns set where first_name and last_name row is the same in both of the tables.
+`SELECT first_name, last_name FROM customer EXCEPT SELECT first_name, last_name FROM actor ORDER BY first_name ASC;` | Returns the names of all the customers and actors except the ones that are in both of the tables.
+`SELECT customer_id, SUM(amount) FROM payment GROUP BY customer_id HAVING SUM(amount) > 200;` | We return customer id:s that have sum of payments over 200 USD. For this we group customers by their ID from payment table, and use conditional HAVING.
+`SELECT customer_id, COUNT(amount) FROM payment GROUP BY customer_id HAVING COUNT(amount) > 200;` | We return customer id:s that have sum of payments over 200 USD. For this we group customers by their ID from payment table, and use conditional HAVING.
+`SELECT customer_id, COUNT(amount) FROM payment GROUP BY customer_id HAVING COUNT(amount) > 5 ORDER BY COUNT(amount) DESC;` | We return customer id:s that have over 5 transactions in payment table grouped by customer_id in descending order by the count.
 
 ## Biggest blocks
 - Realizing that docker-compose takes in initalizing sql files alphabetically.

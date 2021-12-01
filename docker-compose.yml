@@ -10,14 +10,21 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /squids
     ports:
-        - "5432:5432"
+        - "8032:5432"
     volumes:
         - ./pgdata:/var/lib/postgresql/data/pgdata
-        - ./sql/1_sakila_schema.sql:/docker-entrypoint-initdb.d/1_sakila_schema.sql
-        - ./sql/2_sakila_insert_data.sql:/docker-entrypoint-initdb.d/2_sakila_insert_data.sql
+        - ./sql/1_game_schema.sql:/docker-entrypoint-initdb.d/1_game_schema.sql
+        # - ./sql/1_sakila_schema.sql:/docker-entrypoint-initdb.d/1_sakila_schema.sql
+        # - ./sql/2_sakila_insert_data.sql:/docker-entrypoint-initdb.d/2_sakila_insert_data.sql
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+  
+  rest_api_server:
+    build: .
+    restart: always
+    ports:
+        - "49160:8880"

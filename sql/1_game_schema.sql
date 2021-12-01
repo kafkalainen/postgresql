@@ -1,0 +1,2 @@
+CREATE DATABASE livelyactionguru_2212372;
+CREATE TABLE livelyactionguru_2212372.game_states;

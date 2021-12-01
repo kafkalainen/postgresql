@@ -1,0 +1,14 @@
+{
+    "name": "test_rest_api",
+    "version": "1.0.0",
+    "description": "Node.js on Docker container",
+    "author": "Joonas Nivala <joonas.hj.nivala@gmail.com>",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.16.1",
+        "pg": "^8.7.1"
+    }
+}
