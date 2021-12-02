@@ -12,6 +12,9 @@
 
 	docker-compose down
 
+## Go inside the container
+	docker exec -it <container_name> /bin/bash
+
 ## Required packages to install
 
 	sudo apt install postgresql postgresql-contrib
@@ -24,6 +27,8 @@
 
 Command | What it does
 --------|-------------
+`\l` | Show databases
+`\c` | Connect to a database vs. USE in SQL
 `\dt;` | Show tables in the current database
 `\dt+;` | Show extra info about tables in the current database.
 `\d <tablename>;` | Describe table
@@ -62,3 +67,13 @@ Command | What it does
 ## Learned
 - Limit is not part of the SQL standard, FETCH is the recommended way of retrieving certain number of rows.
 - PostgreSQL executes the query with the IN operator much faster than the same query that uses a list of OR operators.
+- Starting only one service `docker-compose up <service_name>`
+
+# Testing Node.JS and Express
+
+Command | Described
+--------|----------
+`pool.query(queries.getGamestatesByID, [id], (error, result) =>` | pool is middleware object, which has method query. It accepts SQL statement, and variables to that statement are passed as an array \[id\]. (error, result) is lambdian expression of the callback function, which has error, and result as parameters. When query is made it populates error and result variables, which are used in callback function.
+
+# Links
+Node.js Postgres API [Link](https://node-postgres.com/api/pool)
